@@ -103,7 +103,7 @@ class Restaurant {
 }
 
 class Menus {
-  final List<Drink>? foods;
+  final List<Food>? foods;
   final List<Drink>? drinks;
 
   Menus({
@@ -112,7 +112,7 @@ class Menus {
   });
 
   Menus copyWith({
-    List<Drink>? foods,
+    List<Food>? foods,
     List<Drink>? drinks,
   }) =>
       Menus(
@@ -127,7 +127,7 @@ class Menus {
   factory Menus.fromJson(Map<String, dynamic> json) => Menus(
         foods: json["foods"] == null
             ? []
-            : List<Drink>.from(json["foods"]!.map((x) => Drink.fromJson(x))),
+            : List<Food>.from(json["foods"]!.map((x) => Food.fromJson(x))),
         drinks: json["drinks"] == null
             ? []
             : List<Drink>.from(json["drinks"]!.map((x) => Drink.fromJson(x))),
@@ -140,6 +140,33 @@ class Menus {
         "drinks": drinks == null
             ? []
             : List<dynamic>.from(drinks!.map((x) => x.toJson())),
+      };
+}
+
+class Food {
+  final String? name;
+
+  Food({
+    this.name,
+  });
+
+  Food copyWith({
+    String? name,
+  }) =>
+      Food(
+        name: name ?? this.name,
+      );
+
+  factory Food.fromRawJson(String str) => Food.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Food.fromJson(Map<String, dynamic> json) => Food(
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
       };
 }
 
